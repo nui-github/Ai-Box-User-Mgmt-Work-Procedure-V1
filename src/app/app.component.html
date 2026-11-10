@@ -238,6 +238,14 @@
           <figcaption class="flex items-center gap-2 border-b border-navy/10 bg-tint/50 px-5 py-3 text-sm text-grey">
             <lucide-icon [img]="icons.pointer" [size]="16" class="text-brand" />
             คลิกกล่องในแผนภาพเพื่อดูรายละเอียดของขั้นตอน
+            <button
+              type="button"
+              class="ml-auto inline-flex h-9 items-center gap-2 rounded-lg border-0 bg-white px-3 text-sm font-medium text-navy shadow-[0_1px_2px_rgba(1,1,54,0.1)] transition hover:bg-tint hover:text-brand focus-visible:outline-2 focus-visible:outline-brand"
+              (click)="openModal(f.id)"
+              [attr.aria-label]="'ขยายดู ' + f.title + ' แบบเต็มจอ'"
+            >
+              <lucide-icon [img]="icons.expand" [size]="16" /> ขยาย
+            </button>
           </figcaption>
           <div class="p-4 sm:p-6">
             <app-flow-diagram [spec]="spec(f.id)" [active]="activeNode(f.id)" (picked)="selectNode(f.id, $event)" />
@@ -298,3 +306,21 @@
     </p>
   </div>
 </footer>
+
+<!-- ============ Full-screen flow viewer ============ -->
+<nz-modal
+  [nzVisible]="modalFlow() !== null"
+  nzTitle="Flow Diagram"
+  nzWidth="92vw"
+  [nzStyle]="{ top: '24px' }"
+  [nzDraggable]="false"
+  [nzFooter]="null"
+  [nzBodyStyle]="{ padding: '16px' }"
+  (nzOnCancel)="closeModal()"
+>
+  <ng-container *nzModalContent>
+    @if (modalSpec(); as s) {
+      <app-flow-viewer [spec]="s" [active]="activeNode(s.id)" (picked)="selectNode(s.id, $event)" />
+    }
+  </ng-container>
+</nz-modal>

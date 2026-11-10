@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
-import { FlowEdge, FlowNode, FlowSpec } from './flow.types';
+import { FlowEdge, FlowNode, FlowSpec, flowBounds } from './flow.types';
 
 /** Renders a FlowSpec as an inline SVG (orthogonal connectors, swimlanes optional). */
 @Component({
@@ -14,19 +14,15 @@ export class FlowDiagramComponent {
   readonly active = input<string | null>(null);
   readonly picked = output<string>();
 
-  readonly box = computed(() => {
-    const s = this.spec();
-    const [w, h] = s.viewBox;
-    if (s.lanes.length) {
-      return { x: 0, y: 0, w, h: s.laneTop + s.laneH * s.lanes.length + 20 };
-    }
-    const top = Math.min(...s.nodes.map((n) => n.cy - n.h / 2));
-    const bottom = Math.max(...s.nodes.map((n) => n.cy + n.h / 2));
-    return { x: 0, y: top - 28, w, h: bottom - top + 56 };
-  });
+  /** Padding around the cropped content (viewBox). */
+  readonly pad = input(16);
+  /** Natural size: fixed pixel width/height from the viewBox (used by the zoomable viewer). */
+  readonly natural = input(false);
+
+  readonly box = computed(() => flowBounds(this.spec(), this.pad()));
 
   /** Below this width the diagram scrolls instead of shrinking further (keeps text >= ~10px). */
-  readonly minWidth = computed(() => Math.min(this.box().w, 940));
+  readonly minWidth = computed(() => (this.natural() ? null : Math.min(this.box().w, 940)));
 
   readonly laneBottom = computed(() => {
     const s = this.spec();

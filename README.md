@@ -16,6 +16,8 @@
 
 คลิกกล่องในแผนภาพ ↔ คลิกขั้นตอน จะ highlight คู่กัน
 
+ปุ่ม **ขยาย** บนการ์ด diagram เปิด modal เต็มจอ: ลากเพื่อเลื่อน (pan), ล้อเมาส์ซูมที่ตำแหน่งเมาส์, ปุ่ม − / + / Reset (fit) ช่วง 25%–250%
+
 ## Stack
 
 - Angular 19 (standalone components, signals) — ใช้ Angular 19 เพราะ Node บนเครื่อง dev คือ 20.12
@@ -55,7 +57,8 @@ src/app/
   app.component.*            หน้าเดียว: hero, สารบัญ (nz-anchor), ทุกหัวข้อ, footer
   data/content.ts            เนื้อหาทั้งหมดจากเอกสาร (ข้อความ, ขั้นตอน, checklist)
   data/flows.geometry.ts     พิกัด node/เส้นของแต่ละ diagram (id n1.. อ้างอิงจาก content.ts)
-  flow-diagram/              component วาด SVG (swimlane, diamond, connector มุมโค้ง)
+  flow-diagram/              component วาด SVG (swimlane, diamond, connector มุมโค้ง) + flowBounds() crop viewBox
+  flow-viewer/               modal viewer: toolbar, pan, wheel zoom (sizer/stage 2 ชั้น)
 diagrams/                    ไฟล์ HTML diagram แบบ standalone รุ่นแรก (อ้างอิง)
 public/                      logo-ai-box.svg, favicon.svg
 ```

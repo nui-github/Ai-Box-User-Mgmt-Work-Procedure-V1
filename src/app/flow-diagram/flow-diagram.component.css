@@ -1,5 +1,7 @@
 :host { display: block; overflow-x: auto; }
 svg { display: block; width: 100%; height: auto; font-family: inherit; }
+svg.natural { width: auto; max-width: none; }
+:host.natural-host { overflow: visible; }
 
 .lane-line { stroke: rgba(1, 1, 54, 0.1); stroke-width: 1; }
 .lane-line.edge { stroke: rgba(1, 1, 54, 0.22); }

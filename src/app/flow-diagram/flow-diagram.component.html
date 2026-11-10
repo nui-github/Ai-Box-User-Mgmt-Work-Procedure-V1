@@ -1,6 +1,9 @@
 <svg
   [attr.viewBox]="box().x + ' ' + box().y + ' ' + box().w + ' ' + box().h"
   [style.min-width.px]="minWidth()"
+  [attr.width]="natural() ? box().w : null"
+  [attr.height]="natural() ? box().h : null"
+  [class.natural]="natural()"
   xmlns="http://www.w3.org/2000/svg"
   role="group"
   [attr.aria-label]="spec().title"

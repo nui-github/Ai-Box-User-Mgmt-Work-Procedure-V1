@@ -1,0 +1,95 @@
+:host {
+  display: block;
+  --viewer-bg: #f6f8fd;
+  --viewer-dot: rgba(1, 1, 54, 0.14);
+  --tool-bg: #ffffff;
+  --tool-fg: #010136;
+  --tool-hover: #e8f1fb;
+  --tool-shadow: 0 1px 2px rgba(1, 1, 54, 0.08), 0 4px 14px rgba(1, 1, 54, 0.08);
+}
+
+/* Dark mode hooks (the site itself is light-only today; these follow the OS setting if it is ever themed). */
+@media (prefers-color-scheme: dark) {
+  :host-context(.dark-diagram) {
+    --viewer-bg: #0c0f2a;
+    --viewer-dot: rgba(255, 255, 255, 0.16);
+    --tool-bg: #1a1e44;
+    --tool-fg: #f2f5ff;
+    --tool-hover: #262b5c;
+  }
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: fit-content;
+  margin: 0 auto 12px;
+  padding: 4px;
+  border-radius: 12px;
+  background: var(--tool-bg);
+  box-shadow: var(--tool-shadow);
+}
+
+.tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--tool-fg);
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+.tool:hover:not(:disabled) { background: var(--tool-hover); }
+.tool:focus-visible { outline: 2px solid var(--c-blue); outline-offset: 1px; }
+.tool:disabled { opacity: 0.35; cursor: default; }
+
+.percent {
+  min-width: 52px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--tool-fg);
+}
+
+.canvas {
+  display: flex; /* lets the sizer's margin:auto centre it when smaller than the canvas */
+  box-sizing: border-box;
+  height: calc(100vh - 230px);
+  min-height: 320px;
+  padding: 16px;
+  overflow: auto;
+  border-radius: 12px;
+  background-color: var(--viewer-bg);
+  background-image: radial-gradient(var(--viewer-dot) 1px, transparent 1px);
+  background-size: 20px 20px;
+  cursor: grab;
+  touch-action: none;
+  overscroll-behavior: contain;
+  user-select: none;
+}
+.canvas.panning { cursor: grabbing; }
+.canvas.panning * { cursor: grabbing !important; }
+
+/* transform: scale() does not change layout size, so a sizer takes the scaled size and the stage scales inside it. */
+.sizer {
+  position: relative;
+  flex: none;
+  margin: auto;
+  transition: width 0.15s ease, height 0.15s ease;
+}
+.sizer.no-anim { transition: none; }
+
+.stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+}

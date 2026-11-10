@@ -7,6 +7,7 @@ import {
   FileText,
   Layers,
   LucideAngularModule,
+  Maximize2,
   MousePointerClick,
   ShieldCheck,
   TriangleAlert,
@@ -16,11 +17,13 @@ import {
   Workflow,
 } from 'lucide-angular';
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { FlowDiagramComponent } from './flow-diagram/flow-diagram.component';
 import { FlowSpec } from './flow-diagram/flow.types';
+import { FlowViewerComponent } from './flow-viewer/flow-viewer.component';
 import {
   DEFINITIONS,
   DOC_META,
@@ -45,7 +48,7 @@ import { FLOW_GEOMETRY } from './data/flows.geometry';
   selector: 'app-root',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [LucideAngularModule, NzAnchorModule, NzStepsModule, NzTableModule, NzTagModule, FlowDiagramComponent],
+  imports: [LucideAngularModule, NzAnchorModule, NzModalModule, NzStepsModule, NzTableModule, NzTagModule, FlowDiagramComponent, FlowViewerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -78,6 +81,7 @@ export class AppComponent {
     pointer: MousePointerClick,
     warn: TriangleAlert,
     flow: Workflow,
+    expand: Maximize2,
     'user-plus': UserPlus,
     'user-cog': UserCog,
     'user-minus': UserMinus,
@@ -87,6 +91,21 @@ export class AppComponent {
   private readonly geometry = new Map<string, FlowSpec>(FLOW_GEOMETRY.map((g) => [g.id, g]));
   /** Active node per flow (id -> node id). Clicking a node or a step keeps both in sync. */
   readonly active = signal<Record<string, string | null>>(Object.fromEntries(FLOW_SECTIONS.map((f) => [f.id, f.steps[0].node])));
+
+  /** Flow currently shown in the full-screen modal (null = closed). */
+  readonly modalFlow = signal<string | null>(null);
+  readonly modalSpec = computed(() => {
+    const id = this.modalFlow();
+    return id ? this.geometry.get(id) ?? null : null;
+  });
+
+  openModal(flowId: string): void {
+    this.modalFlow.set(flowId);
+  }
+
+  closeModal(): void {
+    this.modalFlow.set(null);
+  }
 
   spec(id: string): FlowSpec {
     return this.geometry.get(id)!;

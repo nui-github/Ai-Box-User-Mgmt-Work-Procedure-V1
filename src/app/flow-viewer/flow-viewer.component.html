@@ -1,0 +1,29 @@
+<div class="toolbar" role="toolbar" aria-label="ควบคุมการซูม">
+  <button type="button" class="tool" aria-label="ซูมออก" title="ซูมออก" (click)="zoomOut()" [disabled]="zoom() <= 0.25">
+    <lucide-icon [img]="icons.zoomOut" [size]="18" />
+  </button>
+  <span class="percent" aria-live="polite">{{ percent() }}%</span>
+  <button type="button" class="tool" aria-label="ซูมเข้า" title="ซูมเข้า" (click)="zoomIn()" [disabled]="zoom() >= 2.5">
+    <lucide-icon [img]="icons.zoomIn" [size]="18" />
+  </button>
+  <button type="button" class="tool" aria-label="รีเซ็ต (พอดีความกว้าง)" title="รีเซ็ต (พอดีความกว้าง)" (click)="fit()">
+    <lucide-icon [img]="icons.fit" [size]="18" />
+  </button>
+</div>
+
+<div
+  #canvas
+  class="canvas"
+  [class.panning]="panning()"
+  (wheel)="onWheel($event)"
+  (pointerdown)="onPanStart($event)"
+  (pointermove)="onPanMove($event)"
+  (pointerup)="onPanEnd($event)"
+  (pointercancel)="onPanEnd($event)"
+>
+  <div #sizer class="sizer" [class.no-anim]="noAnim()" [style.width.px]="sizerW()" [style.height.px]="sizerH()">
+    <div class="stage" [style.width.px]="natural().w" [style.height.px]="natural().h" [style.transform]="'scale(' + zoom() + ')'">
+      <app-flow-diagram [spec]="spec()" [active]="active()" [pad]="pad" [natural]="true" (picked)="onPick($event)" />
+    </div>
+  </div>
+</div>

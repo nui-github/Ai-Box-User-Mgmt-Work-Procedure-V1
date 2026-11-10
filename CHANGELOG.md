@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+### 2026-11-10 — หมายเหตุสิทธิ์เข้าถึงเอกสาร
+- การ์ดเอกสารต้นฉบับ (PDF) เพิ่มข้อความ info (ไอคอน `Info`) ใต้ปุ่ม: "เอกสารนี้เปิดดูได้เฉพาะผู้ที่ได้รับสิทธิ์เข้าถึงเท่านั้น หากเปิดไม่ได้ โปรดขอสิทธิ์จากผู้ดูแลเอกสาร" · `src/app/app.component.{ts,html}`
+
 ### 2026-11-10 — การ์ดลิงก์เอกสารต้นฉบับ (PDF)
 - เพิ่ม section ใน hero (ใต้ chip Effective Date / Rev. / อ้างอิง) แสดง URL ของ PDF บน SharePoint ในกล่อง ตัดด้วย `...` เมื่อยาวเกิน (`truncate`, hover เห็น URL เต็มจาก `title`)
 - ปุ่ม "คัดลอกลิงก์": copy URL ลง clipboard (`navigator.clipboard`, fallback `execCommand`) แล้วแสดง toast "คัดลอกลิงก์แล้ว" ผ่าน `NzMessageService`

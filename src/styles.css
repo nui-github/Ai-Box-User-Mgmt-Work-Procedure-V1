@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'IBM Plex Sans Thai', ui-sans-serif, system-ui, sans-serif;
+  --color-navy: #010136;
+  --color-brand: #1f5df9;
+  --color-mint: #16ea9e;
+  --color-grey: #666666;
+  --color-tint: #e8f1fb;
+}
+
+/* Ai-BOX brand tokens (also used by the SVG flow diagrams) */
+:root {
+  --c-navy: #010136;
+  --c-blue: #1f5df9;
+  --c-green: #16ea9e;
+  --c-grey: #666666;
+  --c-surface: #ffffff;
+  --grad: linear-gradient(135deg, #1f5df9 0%, #16ea9e 100%);
+  --ant-primary-color: #1f5df9;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+}
+
+body {
+  margin: 0;
+  color: var(--c-navy);
+  background: #ffffff;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ng-zorro inherits the page font */
+.ant-table, .ant-steps, .ant-tag, .ant-anchor-wrapper, .ant-anchor, .ant-anchor-link, .ant-anchor-link-title {
+  font-family: var(--font-sans);
+}
+
+.grad-text {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.grad-bg { background: var(--grad); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* ng-zorro steps: keep inactive steps readable (default dims them) */
+.ant-steps .ant-steps-item-title { font-size: 15px; font-weight: 600; color: var(--c-navy) !important; }
+.ant-steps .ant-steps-item-subtitle { font-size: 13px; color: var(--c-blue) !important; font-weight: 500; }
+.ant-steps .ant-steps-item-description { color: var(--c-grey) !important; font-size: 14px; line-height: 1.65; }
+.ant-steps .ant-steps-item-wait .ant-steps-item-icon .ant-steps-icon-dot { background: #c3cae0; }
+.ant-steps-vertical > .ant-steps-item { cursor: pointer; }
+.ant-steps-vertical > .ant-steps-item .ant-steps-item-content { padding-bottom: 6px; }

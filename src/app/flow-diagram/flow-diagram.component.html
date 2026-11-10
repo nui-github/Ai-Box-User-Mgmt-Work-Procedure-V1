@@ -1,0 +1,75 @@
+<svg
+  [attr.viewBox]="box().x + ' ' + box().y + ' ' + box().w + ' ' + box().h"
+  [style.min-width.px]="minWidth()"
+  xmlns="http://www.w3.org/2000/svg"
+  role="group"
+  [attr.aria-label]="spec().title"
+>
+  <defs>
+    @for (s of ['flow', 'accent', 'dashed']; track s) {
+      <marker [attr.id]="spec().id + '-arrow-' + s" [class]="'mk mk-' + s" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" />
+      </marker>
+    }
+  </defs>
+
+  <!-- swimlanes -->
+  @if (spec().lanes.length) {
+    @for (l of laneLines(); track l.y) {
+      <line [attr.x1]="spec().x0" [attr.x2]="spec().x1" [attr.y1]="l.y" [attr.y2]="l.y" [class]="l.edge ? 'lane-line edge' : 'lane-line'" />
+    }
+    <line [attr.x1]="spec().left" [attr.x2]="spec().left" [attr.y1]="spec().laneTop" [attr.y2]="laneBottom()" class="lane-line edge" />
+    @for (l of spec().lanes; track l.name) {
+      <text [attr.x]="spec().x0 + 20" [attr.y]="l.cy + 4" class="lane-label">{{ l.name }}</text>
+    }
+  }
+
+  <!-- connectors (drawn before nodes) -->
+  @for (e of spec().edges; track $index) {
+    <path [attr.d]="pathD(e)" [class]="'edge edge-' + e.style" [attr.marker-end]="marker(e.style)" />
+  }
+
+  @for (l of spec().labels; track l.text) {
+    <rect [attr.x]="l.x - labelWidth(l.text) / 2" [attr.y]="l.y - 8" [attr.width]="labelWidth(l.text)" height="16" rx="3" class="label-mask" />
+    <text [attr.x]="l.x" [attr.y]="l.y + 4" text-anchor="middle" [class]="l.accent ? 'edge-label accent' : 'edge-label'">{{ l.text }}</text>
+  }
+
+  <!-- nodes -->
+  @for (n of spec().nodes; track n.id) {
+    @if (n.kind === 'merge') {
+      <circle [attr.cx]="n.cx" [attr.cy]="n.cy" r="4" class="merge" />
+    } @else {
+      <g
+        [class]="'node node-' + n.kind"
+        [class.active]="active() === n.id"
+        role="button"
+        tabindex="0"
+        [attr.aria-label]="ariaLabel(n)"
+        [attr.aria-pressed]="active() === n.id"
+        (click)="pick(n)"
+        (keydown.enter)="pick(n)"
+        (keydown.space)="$event.preventDefault(); pick(n)"
+      >
+        @if (isDecision(n)) {
+          <polygon [attr.points]="diamond(n)" class="shape" />
+          @for (t of n.lines ?? []; track $index) {
+            <text [attr.x]="n.cx" [attr.y]="lineY(n, $index)" text-anchor="middle" class="t-lines">{{ t }}</text>
+          }
+        } @else {
+          <rect
+            [attr.x]="n.cx - n.w / 2"
+            [attr.y]="n.cy - n.h / 2"
+            [attr.width]="n.w"
+            [attr.height]="n.h"
+            [attr.rx]="n.kind === 'terminal' ? n.h / 2 : 8"
+            class="shape"
+          />
+          <text [attr.x]="n.cx" [attr.y]="titleY(n)" text-anchor="middle" class="t-title">{{ n.title }}</text>
+          @for (s of n.subs ?? []; track $index) {
+            <text [attr.x]="n.cx" [attr.y]="subY(n, $index)" text-anchor="middle" class="t-sub">{{ s }}</text>
+          }
+        }
+      </g>
+    }
+  }
+</svg>

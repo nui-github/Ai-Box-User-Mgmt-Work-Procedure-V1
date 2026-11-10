@@ -1,0 +1,300 @@
+<!-- ============ Top bar ============ -->
+<header class="sticky top-0 z-40 border-b border-navy/10 bg-white/85 backdrop-blur">
+  <div class="mx-auto flex h-16 max-w-[1360px] items-center gap-4 px-5 lg:px-8">
+    <a href="#top" aria-label="Ai-BOX" class="shrink-0">
+      <img src="logo-ai-box.svg" alt="Ai-BOX" class="h-7 w-auto" width="118" height="28" />
+    </a>
+    <span class="hidden h-6 w-px bg-navy/15 sm:block"></span>
+    <span class="hidden text-sm font-medium text-grey sm:block">User Access Management</span>
+    <span class="ml-auto inline-flex items-center gap-2 rounded-full border border-navy/10 bg-tint px-3 py-1 text-xs font-medium text-navy">
+      <span class="size-1.5 rounded-full grad-bg"></span>
+      {{ meta.revision }} · มีผล {{ meta.effective }}
+    </span>
+  </div>
+  <!-- mobile / tablet section chips -->
+  <nav class="flex gap-2 overflow-x-auto px-5 pb-3 lg:hidden" aria-label="หัวข้อ">
+    @for (n of nav; track n.id) {
+      <a [href]="'#' + n.id" class="shrink-0 rounded-full border border-navy/10 bg-white px-3 py-1 text-xs text-navy hover:border-brand hover:text-brand">
+        <span class="font-semibold text-brand">{{ n.no }}</span> {{ n.title }}
+      </a>
+    }
+  </nav>
+</header>
+
+<!-- ============ Hero ============ -->
+<div id="top" class="relative overflow-hidden">
+  <div aria-hidden="true" class="pointer-events-none absolute -left-40 -top-40 h-[620px] w-[900px] -skew-x-[24deg] bg-tint/80"></div>
+  <div aria-hidden="true" class="pointer-events-none absolute -right-48 top-24 h-[640px] w-[640px] rounded-tl-[40%] bg-mint/10"></div>
+
+  <div class="relative mx-auto max-w-[1360px] px-5 pb-14 pt-12 lg:px-8 lg:pb-20 lg:pt-16">
+    <p class="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-grey">
+      @for (c of meta.companies; track c; let last = $last) {
+        <span>{{ c }}</span>@if (!last) { <span class="px-1.5 text-navy/30">·</span> }
+      }
+    </p>
+    <p class="mb-3 text-lg font-semibold text-brand">Procedure</p>
+    <h1 class="max-w-4xl text-4xl font-bold leading-[1.15] tracking-tight text-navy sm:text-5xl lg:text-6xl">
+      <span class="grad-text">Ai-BOX</span> User Access Management
+    </h1>
+    <p class="mt-4 text-xl text-grey sm:text-2xl">{{ meta.titleTh }}</p>
+
+    <div class="mt-7 flex flex-wrap gap-3 text-sm">
+      <span class="inline-flex items-center gap-2 rounded-xl border border-navy/10 bg-white px-3.5 py-2">
+        <lucide-icon [img]="icons.calendar" [size]="16" class="text-brand" /> Effective Date: <b>{{ meta.effective }}</b>
+      </span>
+      <span class="inline-flex items-center gap-2 rounded-xl border border-navy/10 bg-white px-3.5 py-2">
+        <lucide-icon [img]="icons.file" [size]="16" class="text-brand" /> <b>{{ meta.revision }}</b>
+      </span>
+      <span class="inline-flex items-center gap-2 rounded-xl border border-navy/10 bg-white px-3.5 py-2">
+        <lucide-icon [img]="icons.shield" [size]="16" class="text-brand" /> อ้างอิง <b>{{ meta.refDocCode }}</b> {{ meta.refDoc }}
+      </span>
+    </div>
+
+    <!-- flow index -->
+    <div class="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      @for (c of flowCards(); track c.anchor) {
+        <a
+          [href]="'#' + c.anchor"
+          class="group rounded-2xl border border-navy/10 bg-white p-5 shadow-[0_1px_0_rgba(1,1,54,0.04)] transition hover:-translate-y-0.5 hover:border-brand hover:shadow-[0_12px_32px_-12px_rgba(31,93,249,0.35)]"
+        >
+          <div class="mb-4 flex items-center justify-between">
+            <span class="grid size-11 place-items-center rounded-xl grad-bg text-white">
+              <lucide-icon [img]="icons[c.icon]" [size]="22" />
+            </span>
+            <span class="text-sm font-semibold text-brand">{{ c.no }}</span>
+          </div>
+          <p class="font-semibold text-navy">{{ c.title }}</p>
+          <p class="text-sm text-grey">{{ c.en }}</p>
+        </a>
+      }
+    </div>
+  </div>
+</div>
+
+<!-- ============ Body: sticky TOC + content ============ -->
+<div class="mx-auto flex max-w-[1360px] gap-10 px-5 pb-24 lg:px-8">
+  <aside class="sticky top-24 hidden h-fit w-60 shrink-0 lg:block">
+    <p class="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-grey">หัวข้อ</p>
+    <nz-anchor [nzAffix]="false" [nzTargetOffset]="96" [nzBounds]="20">
+      @for (n of nav; track n.id) {
+        <nz-link [nzHref]="'#' + n.id" [nzTitle]="n.no + '  ' + n.title"></nz-link>
+      }
+    </nz-anchor>
+  </aside>
+
+  <main class="min-w-0 flex-1 space-y-24">
+    <!-- 1–2 Overview -->
+    <section id="overview">
+      <div class="mb-8">
+        <span class="mb-3 inline-block rounded-full grad-bg px-3 py-1 text-xs font-semibold text-white">1–2</span>
+        <h2 class="text-3xl font-bold text-navy">วัตถุประสงค์และขอบเขตของเอกสาร</h2>
+      </div>
+      <div class="grid gap-6 md:grid-cols-2">
+        <article class="rounded-2xl border border-navy/10 bg-white p-6">
+          <h3 class="mb-4 flex items-center gap-2 text-lg font-semibold text-brand">วัตถุประสงค์</h3>
+          <ul class="space-y-3 text-grey">
+            @for (p of purpose; track p) {
+              <li class="flex gap-3"><span class="mt-2 size-1.5 shrink-0 rounded-full grad-bg"></span><span>{{ p }}</span></li>
+            }
+          </ul>
+        </article>
+        <article class="rounded-2xl border border-navy/10 bg-white p-6">
+          <h3 class="mb-4 flex items-center gap-2 text-lg font-semibold text-brand">ขอบเขตของเอกสาร</h3>
+          <div class="space-y-3 text-grey">
+            @for (p of scope; track p) {
+              <p>{{ p }}</p>
+            }
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 3 Definitions -->
+    <section id="definitions">
+      <div class="mb-8">
+        <span class="mb-3 inline-block rounded-full grad-bg px-3 py-1 text-xs font-semibold text-white">3</span>
+        <h2 class="text-3xl font-bold text-navy">คำนิยาม</h2>
+      </div>
+      <div class="overflow-hidden rounded-2xl border border-navy/10 bg-white">
+        <nz-table #defTable [nzData]="definitions" [nzShowPagination]="false" nzSize="middle" [nzScroll]="{ x: '640px' }">
+          <thead>
+            <tr>
+              <th nzWidth="72px">ลำดับ</th>
+              <th nzWidth="240px">คำศัพท์</th>
+              <th>คำจำกัดความ</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (d of defTable.data; track d.no) {
+              <tr>
+                <td class="text-grey">{{ d.no }}</td>
+                <td class="font-semibold text-navy">{{ d.term }}</td>
+                <td class="text-grey">{{ d.meaning }}</td>
+              </tr>
+            }
+          </tbody>
+        </nz-table>
+      </div>
+    </section>
+
+    <!-- 4.1 Principles -->
+    <section id="principles">
+      <div class="mb-8">
+        <span class="mb-3 inline-block rounded-full grad-bg px-3 py-1 text-xs font-semibold text-white">4.1</span>
+        <h2 class="text-3xl font-bold text-navy">หลักการควบคุมบัญชีและกลุ่มผู้ใช้งาน</h2>
+      </div>
+      <div class="grid gap-5 md:grid-cols-3">
+        @for (p of principles; track p.title) {
+          <article class="rounded-2xl border border-navy/10 bg-white p-6">
+            <span class="mb-4 grid size-11 place-items-center rounded-xl bg-navy text-mint">
+              <lucide-icon [img]="icons[p.icon]" [size]="22" />
+            </span>
+            <h3 class="mb-2 text-lg font-semibold text-navy">{{ p.title }}</h3>
+            <p class="text-grey">{{ p.text }}</p>
+          </article>
+        }
+      </div>
+      <div class="mt-5 grid gap-5 md:grid-cols-2">
+        <article class="rounded-2xl border border-brand/25 bg-tint/60 p-6">
+          <h3 class="mb-1 text-lg font-semibold text-navy">Service Provider</h3>
+          <p class="mb-4 text-grey">{{ orgSp }}</p>
+          <div class="flex flex-wrap gap-2">
+            @for (t of teams; track t) {
+              <nz-tag nzColor="blue" class="!m-0 !rounded-lg !px-3 !py-1 !text-sm">{{ t }}</nz-tag>
+            }
+          </div>
+        </article>
+        <article class="rounded-2xl border border-mint/50 bg-mint/10 p-6">
+          <h3 class="mb-1 text-lg font-semibold text-navy">NETbay Organization</h3>
+          <p class="text-grey">{{ orgNetbay }}</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 4.2 / 4.3 / 4.4 (flows) -->
+    @for (f of flows; track f.id) {
+      @if (f.id === 'quarterly-review') {
+        <!-- 4.5 + 4.6 sit between 4.4 and 4.7 -->
+        <section id="verification">
+          <div class="mb-8">
+            <span class="mb-3 inline-block rounded-full grad-bg px-3 py-1 text-xs font-semibold text-white">4.5</span>
+            <h2 class="text-3xl font-bold text-navy">การตรวจสอบ Ticket ก่อนให้สิทธิ์</h2>
+            <p class="mt-2 text-lg text-grey">Ticket Verification · Admin ต้องตรวจสอบอย่างน้อย</p>
+          </div>
+          <ol class="grid gap-4 md:grid-cols-2">
+            @for (c of checklist; track c; let i = $index) {
+              <li class="flex gap-4 rounded-2xl border border-navy/10 bg-white p-5">
+                <span class="grid size-9 shrink-0 place-items-center rounded-full grad-bg text-white">
+                  <lucide-icon [img]="icons.check" [size]="18" [strokeWidth]="2.5" />
+                </span>
+                <div>
+                  <p class="text-xs font-semibold text-brand">ข้อ {{ i + 1 }}</p>
+                  <p class="text-navy">{{ c }}</p>
+                  @if (i === checklist.length - 1) {
+                    <p class="mt-1 text-sm text-grey">{{ mismatch }}</p>
+                  }
+                </div>
+              </li>
+            }
+          </ol>
+        </section>
+
+        <section id="shared">
+          <div class="mb-8">
+            <span class="mb-3 inline-block rounded-full grad-bg px-3 py-1 text-xs font-semibold text-white">4.6</span>
+            <h2 class="text-3xl font-bold text-navy">การควบคุม Shared Account</h2>
+            <p class="mt-2 text-lg text-grey">Shared Account Control</p>
+          </div>
+          <div class="mb-6 flex items-start gap-4 rounded-2xl bg-navy p-6 text-white">
+            <span class="grid size-11 shrink-0 place-items-center rounded-xl bg-white/10 text-mint">
+              <lucide-icon [img]="icons.ban" [size]="22" />
+            </span>
+            <p class="text-lg leading-relaxed">{{ sharedRule }}</p>
+          </div>
+          <div class="rounded-2xl border border-navy/10 bg-white p-6">
+            <p class="mb-5 font-semibold text-navy">หากตรวจพบ Shared Account</p>
+            <nz-steps [nzCurrent]="3" nzProgressDot nzSize="small" class="shared-steps">
+              @for (s of sharedSteps; track s.title) {
+                <nz-step [nzTitle]="s.title" [nzDescription]="s.text"></nz-step>
+              }
+            </nz-steps>
+          </div>
+          <p class="mt-5 flex gap-3 rounded-2xl border border-navy/10 bg-tint/60 p-5 text-grey">
+            <lucide-icon [img]="icons.warn" [size]="20" class="mt-0.5 shrink-0 text-brand" />
+            <span>{{ sharedTech }}</span>
+          </p>
+        </section>
+      }
+
+      <section [id]="f.anchor">
+        <div class="mb-8">
+          <span class="mb-3 inline-block rounded-full grad-bg px-3 py-1 text-xs font-semibold text-white">{{ f.no }}</span>
+          <h2 class="text-3xl font-bold text-navy">{{ f.title }}</h2>
+          <p class="mt-1 text-lg text-grey">{{ f.en }}</p>
+          <p class="mt-4 max-w-3xl text-grey">{{ f.lead }}</p>
+        </div>
+
+        <figure class="overflow-hidden rounded-2xl border border-navy/10 bg-white">
+          <figcaption class="flex items-center gap-2 border-b border-navy/10 bg-tint/50 px-5 py-3 text-sm text-grey">
+            <lucide-icon [img]="icons.pointer" [size]="16" class="text-brand" />
+            คลิกกล่องในแผนภาพเพื่อดูรายละเอียดของขั้นตอน
+          </figcaption>
+          <div class="p-4 sm:p-6">
+            <app-flow-diagram [spec]="spec(f.id)" [active]="activeNode(f.id)" (picked)="selectNode(f.id, $event)" />
+          </div>
+        </figure>
+
+        <div class="mt-6 rounded-2xl border border-navy/10 bg-white p-6">
+          <h3 class="mb-5 flex items-center gap-2 text-lg font-semibold text-navy">
+            <lucide-icon [img]="icons.flow" [size]="20" class="text-brand" /> รายละเอียดขั้นตอน
+          </h3>
+          <nz-steps
+            nzDirection="vertical"
+            nzProgressDot
+            nzSize="small"
+            [nzCurrent]="stepIndex(f.id)"
+            (nzIndexChange)="selectStep(f.id, $event)"
+          >
+            @for (s of f.steps; track s.node) {
+              <nz-step [nzTitle]="s.title" [nzSubtitle]="s.actor" [nzDescription]="desc"></nz-step>
+              <ng-template #desc>
+                <span class="block text-grey">{{ s.text }}</span>
+                @if (s.note) {
+                  <span class="mt-2 block rounded-lg border-l-4 border-brand bg-tint/70 px-3 py-2 text-sm text-navy">{{ s.note }}</span>
+                }
+              </ng-template>
+            }
+          </nz-steps>
+          @if (f.id === 'quarterly-review') {
+            <p class="mt-6 rounded-xl bg-tint/60 p-4 text-sm text-grey">
+              <b class="text-navy">4.8 การตรวจสอบสิทธิ์และหลักฐานประกอบ:</b> {{ reviewNote }}
+            </p>
+          }
+        </div>
+      </section>
+    }
+  </main>
+</div>
+
+<!-- ============ Footer ============ -->
+<footer class="bg-navy text-white">
+  <div class="mx-auto flex max-w-[1360px] flex-col gap-8 px-5 py-12 lg:px-8">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <img src="logo-ai-box.svg" alt="Ai-BOX" class="h-7 w-auto invert brightness-0" width="118" height="28" />
+        <p class="mt-4 text-white/70">{{ meta.titleEn }} · {{ meta.titleTh }}</p>
+        <p class="text-sm text-white/50">{{ meta.revision }} · Effective {{ meta.effective }} · เอกสารที่เกี่ยวข้อง: {{ meta.refDocCode }} {{ meta.refDoc }}</p>
+      </div>
+      <p class="flex items-center gap-4 text-sm text-white/60">
+        Built with
+        <span class="inline-flex items-center gap-1.5"><i class="si si-angular text-lg"></i> Angular</span>
+        <span class="inline-flex items-center gap-1.5"><i class="si si-tailwindcss text-lg"></i> Tailwind</span>
+        <span class="inline-flex items-center gap-1.5"><i class="si si-vercel text-lg"></i> Vercel</span>
+        <span class="inline-flex items-center gap-1.5"><i class="si si-github text-lg"></i> GitHub</span>
+      </p>
+    </div>
+    <p class="border-t border-white/10 pt-6 text-xs text-white/40">
+      {{ companiesText }}
+    </p>
+  </div>
+</footer>

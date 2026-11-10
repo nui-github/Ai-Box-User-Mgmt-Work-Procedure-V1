@@ -10,3 +10,4 @@
 - Node บนเครื่องคือ 20.12 → ใช้ Angular 19 และ Tailwind 4.1.18 (อย่าอัปเกรดโดยไม่เช็ก Node)
 - Dev server: `npm start` (พอร์ต 4200, config ใน `.claude/launch.json`)
 - `git push` และ deploy Vercel ทำเมื่อผู้ใช้สั่งเท่านั้น remote เป็น SSH
+- ng-zorro ตั้ง `margin` ให้ `<p>` แบบไม่อยู่ใน layer → Tailwind `m*-` บน `<p>` ไม่ทำงาน ใช้ `<div>` หรือ `!m-*`

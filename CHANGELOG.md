@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+### 2026-11-10 — ระยะห่าง 4.6
+- เว้นระยะ 16px (`mt-4`) ระหว่างกล่อง "หากตรวจพบ Shared Account" กับกล่องหมายเหตุข้อจำกัดทางเทคนิค เปลี่ยนกล่องหมายเหตุจาก `<p>` เป็น `<div>` เพราะ ng-zorro รีเซ็ต margin ของ `<p>` (ไม่อยู่ใน layer) ทำให้ `mt-*` ไม่ทำงาน · `src/app/app.component.html`
+
 ### 2026-11-10 — แก้ UI
 - 4.6 กล่องกฎ Shared Account: จัดไอคอนกับข้อความให้อยู่กึ่งกลางแนวตั้ง (`items-start` → `items-center` และ `!m-0` ที่ข้อความ เพราะ ng-zorro ใส่ `margin-bottom: 1em` ให้ `<p>` ทำให้กึ่งกลางเพี้ยน) · `src/app/app.component.html`
 

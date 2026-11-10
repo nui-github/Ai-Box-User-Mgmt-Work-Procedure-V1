@@ -1,11 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import {
   Ban,
   CalendarClock,
   CalendarDays,
   Check,
+  Copy,
+  ExternalLink,
   FileText,
   Layers,
+  Link2,
   LucideAngularModule,
   Maximize2,
   MousePointerClick,
@@ -17,6 +20,7 @@ import {
   Workflow,
 } from 'lucide-angular';
 import { NzAnchorModule } from 'ng-zorro-antd/anchor';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzTableModule } from 'ng-zorro-antd/table';
@@ -78,6 +82,9 @@ export class AppComponent {
     check: Check,
     file: FileText,
     calendar: CalendarDays,
+    copy: Copy,
+    external: ExternalLink,
+    link: Link2,
     pointer: MousePointerClick,
     warn: TriangleAlert,
     flow: Workflow,
@@ -88,7 +95,41 @@ export class AppComponent {
     'calendar-clock': CalendarClock,
   };
 
-  private readonly geometry = new Map<string, FlowSpec>(FLOW_GEOMETRY.map((g) => [g.id, g]));
+  private readonly message = inject(NzMessageService);
+
+  /** Copy the official PDF link and show a toast. */
+  async copyDocLink(): Promise<void> {
+    const url = this.meta.docUrl;
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(url);
+      } else {
+        this.legacyCopy(url);
+      }
+      this.message.success('คัดลอกลิงก์แล้ว');
+    } catch {
+      try {
+        this.legacyCopy(url);
+        this.message.success('คัดลอกลิงก์แล้ว');
+      } catch {
+        this.message.error('คัดลอกลิงก์ไม่สำเร็จ');
+      }
+    }
+  }
+
+  private legacyCopy(text: string): void {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:-1000px;opacity:0';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    ta.remove();
+    if (!ok) throw new Error('copy failed');
+  }
+
+  private readonly geometry =new Map<string, FlowSpec>(FLOW_GEOMETRY.map((g) => [g.id, g]));
   /** Active node per flow (id -> node id). Clicking a node or a step keeps both in sync. */
   readonly active = signal<Record<string, string | null>>(Object.fromEntries(FLOW_SECTIONS.map((f) => [f.id, f.steps[0].node])));
 

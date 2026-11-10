@@ -9,6 +9,10 @@ export interface DocMeta {
   revision: string;
   refDoc: string;
   refDocCode: string;
+  /** SharePoint link to the official PDF. */
+  docUrl: string;
+  /** File name of that PDF (from the link). */
+  docFile: string;
 }
 
 export const DOC_META: DocMeta = {
@@ -19,6 +23,9 @@ export const DOC_META: DocMeta = {
   revision: 'Rev. 1.0',
   refDoc: 'User Access Management',
   refDocCode: 'PC-08',
+  docUrl:
+    'https://netbay.sharepoint.com/:b:/r/sites/ISO27001ETDARDServiceProviderCoreTeam/Shared%20Documents/General/1.Final/Policy%20and%20Procedure/2026/PC/PD-PC-01%20Rev%201.0%20Ai-BOX%20User%20Access%20Management.pdf?d=w21ed9ee2d7b04f65b907bc3f1b433171&csf=1&web=1&e=GH8fUg',
+  docFile: 'PD-PC-01 Rev 1.0 Ai-BOX User Access Management.pdf',
 };
 
 export interface NavItem {

@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+### 2026-11-10 — การ์ดลิงก์เอกสารต้นฉบับ (PDF)
+- เพิ่ม section ใน hero (ใต้ chip Effective Date / Rev. / อ้างอิง) แสดง URL ของ PDF บน SharePoint ในกล่อง ตัดด้วย `...` เมื่อยาวเกิน (`truncate`, hover เห็น URL เต็มจาก `title`)
+- ปุ่ม "คัดลอกลิงก์": copy URL ลง clipboard (`navigator.clipboard`, fallback `execCommand`) แล้วแสดง toast "คัดลอกลิงก์แล้ว" ผ่าน `NzMessageService`
+- ปุ่ม "เปิดดูเอกสาร": เปิด URL ใน tab ใหม่ (`target="_blank"` + `rel="noopener noreferrer"`) ใช้ `!text-white` เพราะ ng-zorro ตั้งสี `<a>` นอก layer
+- ข้อมูลลิงก์อยู่ที่ `DOC_META.docUrl` / `docFile` ใน `src/app/data/content.ts` · แก้ `app.component.{ts,html}`
+
 ### 2026-11-10 — Flow diagram แบบ modal (ขยายเต็มจอ)
 - เพิ่มปุ่ม "ขยาย" บนการ์ดของแต่ละ diagram เปิด modal (`nz-modal`) กว้าง 92vw, top 24px, title "Flow Diagram", ไม่ลากได้, มีปุ่ม X
 - Toolbar กึ่งกลาง: ซูมออก (−) · % · ซูมเข้า (+) · Reset (fit width) ช่วง 25%–250% ปุ่มไม่มีขอบ ไอคอนกึ่งกลาง

@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+### 2026-11-10 — แก้ UI
+- 4.6 กล่องกฎ Shared Account: จัดไอคอนกับข้อความให้อยู่กึ่งกลางแนวตั้ง (`items-start` → `items-center` และ `!m-0` ที่ข้อความ เพราะ ng-zorro ใส่ `margin-bottom: 1em` ให้ `<p>` ทำให้กึ่งกลางเพี้ยน) · `src/app/app.component.html`
+
 ### 2026-11-10 — เริ่มโปรเจกต์
 - สร้างโปรเจกต์ Angular 19 + ng-zorro-antd 19 + Tailwind CSS 4.1.18 + Lucide + Simple Icons font + IBM Plex Sans Thai
 - ธีมสีตามรูป ref: Navy `#010136`, Blue `#1F5DF9`, Green `#16EA9E`, Grey `#666666`, gradient Blue→Green

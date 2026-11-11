@@ -13,7 +13,7 @@
 | 4.5 | การตรวจสอบ Ticket ก่อนให้สิทธิ์ | Checklist |
 | 4.6 | การควบคุม Shared Account | กฎ + ขั้นตอน (`nz-steps`) |
 | 4.7–4.8 | การทบทวนสิทธิ์รายไตรมาส | Flowchart + ขั้นตอน |
-| Dev | Development Process (จากไฟล์ `Ai-Box Development Process.pdf` — เอกสารแยกจาก PC-08) | Flowchart 3 phase + รายการขั้นตอนต่อ phase |
+| Development Process | Development Process (จากไฟล์ `Ai-Box Development Process.pdf` — เอกสารแยกจาก PC-08) | Flowchart 3 phase + รายการขั้นตอนต่อ phase |
 
 คลิกกล่องในแผนภาพ ↔ คลิกขั้นตอน จะ highlight คู่กัน
 

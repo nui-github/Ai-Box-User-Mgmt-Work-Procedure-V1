@@ -4,6 +4,25 @@
 
 ## [Unreleased]
 
+### 2026-11-11 — สะกดชื่อแบรนด์
+- บรรทัดใต้หัวข้อ Development Process แก้ "NETbay | AI-Box" เป็น "NETbay | Ai-BOX" ให้ตรงกับชื่อแบรนด์ที่ใช้ทั้งเว็บ · `DEV_PROCESS.brand` ใน `src/app/data/content.ts`
+
+### 2026-11-11 — หัวข้อ section Development Process
+- หัวข้อ (h2) ของ section เปลี่ยนเป็น "Ai-BOX Development Process" ส่วนชื่อเมนูใน TOC และป้ายด้านบนยังเป็น "Development Process" · `src/app/app.component.html`
+
+### 2026-11-11 — เอาไอคอนเมนู Development Process ออก
+- ถอนไอคอน `code-xml` ที่เพิ่มหน้าเมนูใน TOC และ chip นำทาง (ตามที่ผู้ใช้สั่ง) พร้อมลบ `NavItem.icon` และ import ที่ไม่ใช้แล้ว · `content.ts`, `app.component.{ts,html}`
+
+### 2026-11-11 — ป้ายหัว section Development Process
+- ป้ายไล่สีเหนือหัวข้อ section เปลี่ยนจาก "Dev" เป็น "Development Process" · `src/app/app.component.html`
+- README: แถวตาราง section ใช้ป้าย "Development Process" แทน `Dev`
+
+### 2026-11-11 — ไอคอนเมนู Development Process
+- เพิ่มไอคอน Lucide `code-xml` (`</>`) หน้าเมนู "Development Process" ใน TOC และ chip นำทาง (`NavItem.icon` optional; TOC ใช้ template ผ่าน `nzTitle`) · `content.ts`, `app.component.{ts,html}`
+
+### 2026-11-11 — ชื่อเมนู Development Process
+- ชื่อเมนูใน TOC และ chip นำทางเหลือแค่ "Development Process" (เอาคำนำหน้า `Dev` ออก `NAV[].no` ว่าง และ template ข้ามเลขเมื่อว่าง) · `content.ts`, `app.component.html`
+
 ### 2026-11-11 — เมนู Development Process
 - เพิ่มเมนู/section "Development Process" (ป้าย `Dev`) ท้ายหน้า และใน TOC / chip นำทาง เนื้อหามาจากไฟล์ `Ai-Box Development Process.pdf` (NETbay | AI-Box System Development Workflow) ไม่เพิ่มขั้นตอนนอกจากที่ไฟล์ระบุ
 - Diagram 3 phase column: 01 Design · 02 Implement · 03 Production พร้อมเส้น handoff สีน้ำเงิน (Plan approved / Release ready), เส้นประ team coordination, decision `Issue?` / `Error?` (Yes วนกลับ DEV Implement), ข้อความ "Backlog feeds the next cycle" — วาดเป็น SVG ใหม่ตามไฟล์ ใช้สีของเว็บ (ไม่ใช้สีพาสเทลตามบทบาทในไฟล์ต้นฉบับ)

@@ -44,7 +44,7 @@ export const NAV: NavItem[] = [
   { id: 'verification', no: '4.5', title: 'การตรวจสอบ Ticket' },
   { id: 'shared', no: '4.6', title: 'การควบคุม Shared Account' },
   { id: 'review', no: '4.7–4.8', title: 'การทบทวนสิทธิ์รายไตรมาส' },
-  { id: 'dev-process', no: 'Dev', title: 'Development Process' },
+  { id: 'dev-process', no: '', title: 'Development Process' },
 ];
 
 export const PURPOSE: string[] = [
@@ -384,7 +384,7 @@ export interface DevProcessPhase {
 export const DEV_PROCESS = {
   id: 'dev-process',
   anchor: 'dev-process',
-  brand: 'NETbay | AI-Box',
+  brand: 'NETbay | Ai-BOX',
   title: 'System Development Workflow',
   stages: 'Design / Implement / Production',
   purpose: 'Guide requirements, design, development, testing and release, with feedback captured for continuous improvement.',

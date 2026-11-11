@@ -15,7 +15,9 @@
   <nav class="flex gap-2 overflow-x-auto px-5 pb-3 lg:hidden" aria-label="หัวข้อ">
     @for (n of nav; track n.id) {
       <a [href]="'#' + n.id" class="shrink-0 rounded-full border border-navy/10 bg-white px-3 py-1 text-xs text-navy hover:border-brand hover:text-brand">
-        <span class="font-semibold text-brand">{{ n.no }}</span> {{ n.title }}
+        @if (n.no) {
+          <span class="font-semibold text-brand">{{ n.no }}</span>
+        }        {{ n.title }}
       </a>
     }
   </nav>
@@ -118,7 +120,7 @@
     <p class="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-grey">หัวข้อ</p>
     <nz-anchor [nzAffix]="false" [nzTargetOffset]="96" [nzBounds]="20">
       @for (n of nav; track n.id) {
-        <nz-link [nzHref]="'#' + n.id" [nzTitle]="n.no + '  ' + n.title"></nz-link>
+        <nz-link [nzHref]="'#' + n.id" [nzTitle]="n.no ? n.no + '  ' + n.title : n.title"></nz-link>
       }
     </nz-anchor>
   </aside>
@@ -326,8 +328,8 @@
     <!-- Development Process -->
     <section [id]="dev.anchor">
       <div class="mb-8">
-        <span class="mb-3 inline-block rounded-full grad-bg px-3 py-1 text-xs font-semibold text-white">Dev</span>
-        <h2 class="text-3xl font-bold text-navy">Development Process</h2>
+        <span class="mb-3 inline-block rounded-full grad-bg px-3 py-1 text-xs font-semibold text-white">Development Process</span>
+        <h2 class="text-3xl font-bold text-navy">Ai-BOX Development Process</h2>
         <p class="mt-1 text-lg text-grey">{{ dev.brand }} · {{ dev.title }} · {{ dev.stages }}</p>
         <p class="mt-4 max-w-3xl text-grey"><b class="text-navy">Purpose:</b> {{ dev.purpose }}</p>
       </div>

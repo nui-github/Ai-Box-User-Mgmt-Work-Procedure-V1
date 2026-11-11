@@ -13,6 +13,7 @@
 | 4.5 | การตรวจสอบ Ticket ก่อนให้สิทธิ์ | Checklist |
 | 4.6 | การควบคุม Shared Account | กฎ + ขั้นตอน (`nz-steps`) |
 | 4.7–4.8 | การทบทวนสิทธิ์รายไตรมาส | Flowchart + ขั้นตอน |
+| Dev | Development Process (จากไฟล์ `Ai-Box Development Process.pdf` — เอกสารแยกจาก PC-08) | Flowchart 3 phase + รายการขั้นตอนต่อ phase |
 
 คลิกกล่องในแผนภาพ ↔ คลิกขั้นตอน จะ highlight คู่กัน
 
@@ -59,6 +60,7 @@ src/app/
   app.component.*            หน้าเดียว: hero, สารบัญ (nz-anchor), ทุกหัวข้อ, footer
   data/content.ts            เนื้อหาทั้งหมดจากเอกสาร (ข้อความ, ขั้นตอน, checklist)
   data/flows.geometry.ts     พิกัด node/เส้นของแต่ละ diagram (id n1.. อ้างอิงจาก content.ts)
+  data/dev-process.geometry.ts  พิกัด diagram Development Process (3 phase column, id อ้างอิงจาก `DEV_PROCESS` ใน content.ts)
   flow-diagram/              component วาด SVG (swimlane, diamond, connector มุมโค้ง) + flowBounds() crop viewBox
   flow-viewer/               modal viewer: toolbar, pan, wheel zoom (sizer/stage 2 ชั้น)
 diagrams/                    ไฟล์ HTML diagram แบบ standalone รุ่นแรก (อ้างอิง)
@@ -68,6 +70,7 @@ public/                      logo-ai-box.svg, favicon.svg
 ### แก้ diagram
 
 - ข้อความ/คำอธิบายขั้นตอน → `src/app/data/content.ts` (`FLOW_SECTIONS[].steps`, ผูกกับ node ด้วย `node: 'n4'`)
+- Development Process: ข้อความ/ลำดับ → `DEV_PROCESS` ใน `content.ts`, พิกัด → `dev-process.geometry.ts` (ใช้ `phases` แทน `lanes`)
 - ตำแหน่งกล่อง/เส้น → `src/app/data/flows.geometry.ts` (เส้นเป็นมุมฉากเท่านั้น, กล่องเรียงบนกริด 4px)
 - สี/ฟอนต์ใน diagram → `src/app/flow-diagram/flow-diagram.component.css`
 

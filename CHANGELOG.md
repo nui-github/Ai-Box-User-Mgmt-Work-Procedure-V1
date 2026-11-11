@@ -4,6 +4,13 @@
 
 ## [Unreleased]
 
+### 2026-11-11 — เมนู Development Process
+- เพิ่มเมนู/section "Development Process" (ป้าย `Dev`) ท้ายหน้า และใน TOC / chip นำทาง เนื้อหามาจากไฟล์ `Ai-Box Development Process.pdf` (NETbay | AI-Box System Development Workflow) ไม่เพิ่มขั้นตอนนอกจากที่ไฟล์ระบุ
+- Diagram 3 phase column: 01 Design · 02 Implement · 03 Production พร้อมเส้น handoff สีน้ำเงิน (Plan approved / Release ready), เส้นประ team coordination, decision `Issue?` / `Error?` (Yes วนกลับ DEV Implement), ข้อความ "Backlog feeds the next cycle" — วาดเป็น SVG ใหม่ตามไฟล์ ใช้สีของเว็บ (ไม่ใช้สีพาสเทลตามบทบาทในไฟล์ต้นฉบับ)
+- ใต้ diagram: legend (Blue arrows / Dashed arrow) และการ์ดรายการขั้นตอนของแต่ละ phase คลิกกล่องใน diagram ↔ คลิกรายการ จะ highlight คู่กัน; ปุ่ม "ขยาย" เปิด modal viewer เดิม (zoom/pan)
+- `FlowSpec` เพิ่มฟิลด์ optional `phases` / `phaseY` / `phaseDivider` (หัว phase + เส้นคั่นคอลัมน์) และ `flowBounds()` นับรวม; ไฟล์ใหม่ `src/app/data/dev-process.geometry.ts`; ข้อมูลอยู่ที่ `DEV_PROCESS` ใน `content.ts`
+- หมายเหตุ: ไฟล์ต้นฉบับมี "Meeting: DOR / Non-DOR" 2 กล่องติดกัน คงไว้ตามต้นฉบับ
+
 ### 2026-11-10 — จัดกึ่งกลางข้อความ info
 - ข้อความหมายเหตุสิทธิ์เข้าถึงเอกสาร: `items-start` → `items-center` และเอา `mt-0.5` ออกจากไอคอน ให้ไอคอนกับข้อความอยู่กึ่งกลางแนวตั้ง · `src/app/app.component.html`
 

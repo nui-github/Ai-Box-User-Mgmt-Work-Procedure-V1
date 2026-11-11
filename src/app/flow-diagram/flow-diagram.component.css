@@ -7,6 +7,9 @@ svg.natural { width: auto; max-width: none; }
 .lane-line.edge { stroke: rgba(1, 1, 54, 0.22); }
 .lane-label { fill: var(--c-grey); font-size: 10px; font-weight: 600; letter-spacing: 0.08em; }
 
+.phase-title { fill: var(--c-navy); font-size: 17px; font-weight: 600; }
+.phase-no { fill: var(--c-blue); }
+
 .edge { fill: none; stroke: var(--c-grey); stroke-width: 1.4; }
 .edge-accent { stroke: var(--c-blue); stroke-width: 1.8; }
 .edge-dashed { stroke-dasharray: 5 4; }

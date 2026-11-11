@@ -31,6 +31,7 @@ import { FlowSpec } from './flow-diagram/flow.types';
 import { FlowViewerComponent } from './flow-viewer/flow-viewer.component';
 import {
   DEFINITIONS,
+  DEV_PROCESS,
   DOC_META,
   FLOW_SECTIONS,
   NAV,
@@ -47,6 +48,7 @@ import {
   TICKET_CHECKLIST,
   TICKET_MISMATCH,
 } from './data/content';
+import { DEV_PROCESS_GEOMETRY } from './data/dev-process.geometry';
 import { FLOW_GEOMETRY } from './data/flows.geometry';
 
 @Component({
@@ -75,6 +77,7 @@ export class AppComponent {
   readonly sharedTech = SHARED_TECH_NOTE;
   readonly reviewNote = REVIEW_EVIDENCE_NOTE;
   readonly companiesText = DOC_META.companies.join(', ');
+  readonly dev = DEV_PROCESS;
 
   readonly icons = {
     ban: Ban,
@@ -131,9 +134,12 @@ export class AppComponent {
     if (!ok) throw new Error('copy failed');
   }
 
-  private readonly geometry =new Map<string, FlowSpec>(FLOW_GEOMETRY.map((g) => [g.id, g]));
+  private readonly geometry =new Map<string, FlowSpec>([...FLOW_GEOMETRY, DEV_PROCESS_GEOMETRY].map((g) => [g.id, g]));
   /** Active node per flow (id -> node id). Clicking a node or a step keeps both in sync. */
-  readonly active = signal<Record<string, string | null>>(Object.fromEntries(FLOW_SECTIONS.map((f) => [f.id, f.steps[0].node])));
+  readonly active = signal<Record<string, string | null>>({
+    ...Object.fromEntries(FLOW_SECTIONS.map((f) => [f.id, f.steps[0].node])),
+    [DEV_PROCESS.id]: DEV_PROCESS.phases[0].rows[0].nodes[0].node,
+  });
 
   /** Flow currently shown in the full-screen modal (null = closed). */
   readonly modalFlow = signal<string | null>(null);

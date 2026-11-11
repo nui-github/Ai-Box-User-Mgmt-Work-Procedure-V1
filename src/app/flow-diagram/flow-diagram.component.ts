@@ -37,6 +37,12 @@ export class FlowDiagramComponent {
     }));
   });
 
+  /** x of the divider between each pair of neighbouring phase columns. */
+  readonly phaseDividers = computed(() => {
+    const ps = this.spec().phases ?? [];
+    return ps.slice(1).map((p, i) => (ps[i].x1 + p.x0) / 2);
+  });
+
   marker(style: string): string {
     return `url(#${this.spec().id}-arrow-${style})`;
   }

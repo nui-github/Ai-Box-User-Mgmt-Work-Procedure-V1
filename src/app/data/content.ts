@@ -44,6 +44,7 @@ export const NAV: NavItem[] = [
   { id: 'verification', no: '4.5', title: 'การตรวจสอบ Ticket' },
   { id: 'shared', no: '4.6', title: 'การควบคุม Shared Account' },
   { id: 'review', no: '4.7–4.8', title: 'การทบทวนสิทธิ์รายไตรมาส' },
+  { id: 'dev-process', no: 'Dev', title: 'Development Process' },
 ];
 
 export const PURPOSE: string[] = [
@@ -355,3 +356,87 @@ export const SHARED_TECH_NOTE =
 
 export const REVIEW_EVIDENCE_NOTE =
   'การทบทวนสิทธิ์ให้พิจารณาจากรายชื่อผู้ใช้งาน Organization, Team/Group (ถ้ามี) และความเหมาะสมของสิทธิ์ตามหน้าที่และความรับผิดชอบ (R&R)';
+
+// ---------------------------------------------------------------------------
+// Development Process — from "Ai-Box Development Process" (NETbay | AI-Box System Development Workflow).
+// Wording is kept as in the source diagram; node ids match DEV_PROCESS_GEOMETRY.
+// ---------------------------------------------------------------------------
+export interface DevProcessNode {
+  node: string;
+  label: string;
+}
+
+export interface DevProcessRow {
+  /** Nodes drawn side by side (parallel) in the diagram. */
+  nodes: DevProcessNode[];
+  /** Where the flow goes after a decision. */
+  note?: string;
+}
+
+export interface DevProcessPhase {
+  no: string;
+  name: string;
+  /** Label on the handoff arrow into this phase. */
+  handoff?: string;
+  rows: DevProcessRow[];
+}
+
+export const DEV_PROCESS = {
+  id: 'dev-process',
+  anchor: 'dev-process',
+  brand: 'NETbay | AI-Box',
+  title: 'System Development Workflow',
+  stages: 'Design / Implement / Production',
+  purpose: 'Guide requirements, design, development, testing and release, with feedback captured for continuous improvement.',
+  legend: [
+    { style: 'accent', text: 'Blue arrows: phase handoff' },
+    { style: 'dashed', text: 'Dashed arrow: team coordination' },
+  ],
+  closing: 'Backlog feeds the next cycle',
+  phases: [
+    {
+      no: '01',
+      name: 'Design',
+      rows: [
+        { nodes: [{ node: 'start', label: 'Start' }] },
+        { nodes: [{ node: 'feedback', label: 'Customer Feedback' }, { node: 'roadmap', label: 'Business Roadmap' }] },
+        { nodes: [{ node: 'pipeline', label: 'PO - Add to Pipeline' }] },
+        { nodes: [{ node: 'review', label: 'Internal Review' }] },
+        { nodes: [{ node: 'dor1', label: 'Meeting: DOR / Non-DOR' }] },
+        { nodes: [{ node: 'dor2', label: 'Meeting: DOR / Non-DOR' }] },
+        { nodes: [{ node: 'estimate', label: 'Estimate: PO, DEV, QA' }] },
+        { nodes: [{ node: 'uxui', label: 'UX/UI Figma' }, { node: 'journey', label: 'User Journey Flow' }] },
+        { nodes: [{ node: 'plan', label: 'Plan' }] },
+      ],
+    },
+    {
+      no: '02',
+      name: 'Implement',
+      handoff: 'Plan approved',
+      rows: [
+        { nodes: [{ node: 'story', label: 'PO - Create User Story' }] },
+        { nodes: [{ node: 'dev', label: 'DEV Implement' }, { node: 'qa-design', label: 'QA - Design Test Case' }] },
+        { nodes: [{ node: 'standup', label: 'DEV / QA / PO Stand-up Meeting' }] },
+        { nodes: [{ node: 'qa-test', label: 'QA - Test' }] },
+        { nodes: [{ node: 'issue', label: 'Issue?' }], note: 'Yes: กลับไป DEV Implement · No: QA - Close Test Case' },
+        { nodes: [{ node: 'qa-close', label: 'QA - Close Test Case' }] },
+        { nodes: [{ node: 'prepare', label: 'DEV - Prepare for Production' }] },
+        { nodes: [{ node: 'uat', label: 'UAT - Internal' }] },
+        { nodes: [{ node: 'error', label: 'Error?' }], note: 'Yes: กลับไป DEV Implement · No: On Production' },
+        { nodes: [{ node: 'on-prod', label: 'On Production' }] },
+      ],
+    },
+    {
+      no: '03',
+      name: 'Production',
+      handoff: 'Release ready',
+      rows: [
+        { nodes: [{ node: 'deploy', label: 'Production Deploy' }] },
+        { nodes: [{ node: 'post-test', label: 'Post-Deploy Testing' }] },
+        { nodes: [{ node: 'retro', label: 'Sprint Retrospective' }] },
+        { nodes: [{ node: 'backlog', label: 'Keep Backlog Issue' }] },
+        { nodes: [{ node: 'end', label: 'End' }] },
+      ],
+    },
+  ] as DevProcessPhase[],
+};

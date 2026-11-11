@@ -27,6 +27,19 @@
     }
   }
 
+  <!-- phase columns -->
+  @if (spec().phases; as phases) {
+    @for (x of phaseDividers(); track x) {
+      <line [attr.x1]="x" [attr.x2]="x" [attr.y1]="spec().phaseDivider?.[0]" [attr.y2]="spec().phaseDivider?.[1]" class="lane-line edge" />
+    }
+    @for (p of phases; track p.name) {
+      <text [attr.x]="(p.x0 + p.x1) / 2" [attr.y]="spec().phaseY" text-anchor="middle" class="phase-title">
+        <tspan class="phase-no">{{ p.no }}</tspan><tspan dx="8">{{ p.name }}</tspan>
+      </text>
+      <line [attr.x1]="p.x0" [attr.x2]="p.x1" [attr.y1]="(spec().phaseY ?? 0) + 12" [attr.y2]="(spec().phaseY ?? 0) + 12" class="lane-line edge" />
+    }
+  }
+
   <!-- connectors (drawn before nodes) -->
   @for (e of spec().edges; track $index) {
     <path [attr.d]="pathD(e)" [class]="'edge edge-' + e.style" [attr.marker-end]="marker(e.style)" />

@@ -30,10 +30,22 @@ export interface FlowLane {
   cy: number;
 }
 
+/** Vertical phase column (heading + rule on top, dividers between columns). Optional alternative to swimlanes. */
+export interface FlowPhase {
+  no: string;
+  name: string;
+  x0: number;
+  x1: number;
+}
+
 export interface FlowSpec {
   id: string;
   viewBox: [number, number];
   lanes: FlowLane[];
+  /** Phase columns: heading baseline y, divider y-range. Dividers sit between neighbouring phases. */
+  phases?: FlowPhase[];
+  phaseY?: number;
+  phaseDivider?: [number, number];
   laneTop: number;
   laneH: number;
   left: number;
@@ -66,6 +78,10 @@ export function flowBounds(spec: FlowSpec, pad: number): FlowBounds {
   };
   if (spec.lanes.length) {
     add(spec.x0, spec.laneTop, spec.x1, spec.laneTop + spec.laneH * spec.lanes.length);
+  }
+  if (spec.phases?.length) {
+    const y0 = (spec.phaseY ?? 0) - 20;
+    add(Math.min(...spec.phases.map((p) => p.x0)), y0, Math.max(...spec.phases.map((p) => p.x1)), spec.phaseDivider?.[1] ?? y0);
   }
   for (const n of spec.nodes) add(n.cx - n.w / 2, n.cy - n.h / 2, n.cx + n.w / 2, n.cy + n.h / 2);
   for (const e of spec.edges) for (const [x, y] of e.pts) add(x, y, x, y);
